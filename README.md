@@ -5,7 +5,6 @@
   - By: Tiffany Shen
 
   ## Summary of Findings
-  <Show the variations studied in a table>
 
 | Flight Path Angle  | Velocity |
 | ------------- | ------------- |
@@ -13,16 +12,12 @@
 | -0.5  | 2  |
 | 0.4  | 7.5  |
 
-  Summarized what was accomplished in this study.  Describe 2-4 observations from simulating the flight path.
-  Reference the figures below as needed.
-
   In this study we are interested in investigating the flight properties of a glider. This was done by calculating and observing different relationships between flight properties such as range, height, time, velocities, and flight path angles. 
   Some observations:
-  - It can be seen in figure 1 that the height vs. range for varying gammas has less variation than height vs. range for varying velocities. It can be seen that higher velocity has a smaller slope and has a peak at around range 3.5m whereas the lower velocity has a higher slope and a trough at around range 3.5m. This is also supported by the first graph in figure 2 where 100 iterations are showing th esame variation pattern.
-  - It can also noted that height and range share an inverse relationship with each other always, this is seen in figure 1 and 2.
-  - While all the figures change slightly with each time the script is run, it is seen that figure 3 involving, time derivatives, changes dramatically each time the script is run.
-
-  *If the analysis falls short of the goal, this is your chance to explain what was done or what were the barriers.*
+  1. It can be seen in figure 1 that the height vs. range for varying gammas has less variation than height vs. range for varying velocities. It can be seen that higher velocity has a smaller slope and has a peak at around range 3.5m whereas the lower velocity has a higher slope and a trough at around range 3.5m. This is also supported by the first graph in figure 2 where 100 iterations are showing th esame variation pattern.
+  2. It can also be noted that height and range share an inverse relationship with each other always, this is seen in figure 1 and 2.
+  3. While all the figures change slightly with each time the script is run, it is seen that figure 3 involving, time derivatives, changes dramatically each time the script is run.
+  4. There were barriers with this study such as limited flight path angles and velocities tested. Random itertaions between and expected range may also not represent flight properties as accurately as actually having tested flight.
  
   # Code Listing
 
