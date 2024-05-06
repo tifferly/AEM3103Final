@@ -18,6 +18,8 @@
   # Figures
 
   ## Fig. 1: Single Parameter Variation
+  <img width="485" alt="Screenshot 2024-05-06 at 2 04 13 PM" src="https://github.com/tifferly/AEM3103Final/assets/167820456/a6d5d4af-ee69-420a-ba67-d894eb2fb697">
+
   <2D trajectory simulated by varying single parameter at at time>
   <The above plot should also show the nominal trajectory>
 
