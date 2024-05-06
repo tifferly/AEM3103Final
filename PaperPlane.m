@@ -2,6 +2,9 @@
 %	Copyright 2005 by Robert Stengel
 %	August 23, 2005
 
+close all
+clear all
+
 	global CL CD S m g rho	
 	S		=	0.017;			% Reference Area, m^2
 	AR		=	0.86;			% Wing Aspect Ratio
@@ -26,38 +29,115 @@
 	R		=	0;			% Initial Range, m
 	to		=	0;			% Initial Time, sec
 	tf		=	6;			% Final Time, sec
+    v2 = 2;                 % Minimum Velocity
+    v3 = 7.5;               % Maximum Velocity
+    gam2 = -0.5;            % Min Gamma
+    gam3 = 0.4;             % Max Gamma
 	tspan	=	[to tf];
+
 	xo		=	[V;Gam;H;R];
 	[ta,xa]	=	ode23('EqMotion',tspan,xo);
-	
-%	b) Oscillating Glide due to Zero Initial Flight Path Angle
-	xo		=	[V;0;H;R];
-	[tb,xb]	=	ode23('EqMotion',tspan,xo);
 
-%	c) Effect of Increased Initial Velocity
-	xo		=	[1.5*V;0;H;R];
-	[tc,xc]	=	ode23('EqMotion',tspan,xo);
+    x1 = [V;gam2;H;R];
+    [tb,xb]	=	ode23('EqMotion',tspan,x1);
 
-%	d) Effect of Further Increase in Initial Velocity
-	xo		=	[3*V;0;H;R];
-	[td,xd]	=	ode23('EqMotion',tspan,xo);
-	
-	figure
-	plot(xa(:,4),xa(:,3),xb(:,4),xb(:,3),xc(:,4),xc(:,3),xd(:,4),xd(:,3))
-	xlabel('Range, m'), ylabel('Height, m'), grid
+    x2 = [V;gam3;H;R];
+    [tc,xc]	=	ode23('EqMotion',tspan,x2);
 
-	figure
-	subplot(2,2,1)
-	plot(ta,xa(:,1),tb,xb(:,1),tc,xc(:,1),td,xd(:,1))
-	xlabel('Time, s'), ylabel('Velocity, m/s'), grid
-	subplot(2,2,2)
-	plot(ta,xa(:,2),tb,xb(:,2),tc,xc(:,2),td,xd(:,2))
-	xlabel('Time, s'), ylabel('Flight Path Angle, rad'), grid
-	subplot(2,2,3)
-	plot(ta,xa(:,3),tb,xb(:,3),tc,xc(:,3),td,xd(:,3))
-	xlabel('Time, s'), ylabel('Altitude, m'), grid
-	subplot(2,2,4)
-	plot(ta,xa(:,4),tb,xb(:,4),tc,xc(:,4),td,xd(:,4))
-	xlabel('Time, s'), ylabel('Range, m'), grid
+    y1 = [v2;Gam;H;R];
+    [ta2,xa2]	=	ode23('EqMotion',tspan,y1);
 
+    y2 = [v3;Gam;H;R];
+    [tb2,xb2]	=	ode23('EqMotion',tspan,y2);
+
+    %Plotting
+
+    figure
+    subplot(2, 1, 1)
+    hold on
+    plot(xa(:,4), xa(:, 3), 'k', xb(:,4), xb(:,3), 'r', xc(:,4), xc(:,3), 'g')
+    title('Height vs. Range for Different Gammas')
+    legend(sprintf("Gamma1=%g", Gam), sprintf("Gamma2=%g", gam2), ...
+        sprintf("Gamma3=%g", gam3) )
+    xlabel("Range (m)")
+    ylabel("Height (m)")
+
+    subplot(2, 1, 2)
+    hold on
+    plot(xa(:,4), xa(:, 3), 'k', xa2(:,4), xa2(:,3), 'r', xb2(:,4), xb2(:,3), 'g')
+    title('Height vs. Range for Different Velocities')
+    legend(sprintf("Vel1=%g", V), sprintf("Vel2=%g", v2), sprintf("Vel3=%g", v3))
+    xlabel("Range (m)")
+    ylabel("Height (m)")
+    
+%% 3: Monte Carlo
+figure
+hold on
+timerange = linspace(0.1, 6, 100);
+tavg = 0;
+xavg = 0;
+
+for i = 1: 100
+    randV = v2 + (v3-v2)*rand(1);
+    randG = gam2 + (gam3-gam2)*rand(1);
+
+    xo		=	[randV;randG;H;R];
+	[trand,xrand]	=	ode23('EqMotion',timerange,xo);
+    
+    tavg = tavg + trand;
+    xavg = xavg + xrand;
+    plot(xrand(:, 4), xrand(:, 3))
+    grid
+    title("Height vs. Range (100 Random Iterations)")
+    xlabel("Range (m)")
+    ylabel("Height (m)")
+end
+
+tavg = tavg/100;
+xavg = xavg/100;
+
+%% 4: Apply curve fit
+
+c1 = polyfit(trand, xrand(:,4), 6);
+f1 = polyval(c1, trand);
+c2 = polyfit(trand, xrand(:,3), 6);
+f2 = polyval(c2, trand);
+
+% Plot
+figure
+hold on
+subplot(2, 1, 1)
+plot(tavg, f1, 'r')
+title("Time vs. Range (Curve Fit)")
+xlabel("Time (s)")
+ylabel("Range (m)")
+grid
+subplot(2, 1, 2)
+plot(tavg, f2, 'g')
+title("Time vs. Height (Curve Fit)")
+xlabel("Time (s)")
+ylabel("Height (m)")
+grid
+
+%% 5: Time Derivative
+
+dh = diff(f1)./diff(tavg);
+dr = diff(f2)./diff(tavg);
+
+% Plot
+
+figure
+hold on
+subplot(2, 1, 1)
+plot(tavg(2:end), dr, 'b')
+title("Time Derivative of Range")
+xlabel("Time (s)")
+ylabel("Range (m)")
+grid
+subplot(2, 1, 2)
+plot(tavg(2:end), dh, 'm')
+title("Time Derivative of Height")
+xlabel("Time (s)")
+ylabel("Height (m)")
+grid
 
