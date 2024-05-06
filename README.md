@@ -26,11 +26,16 @@
   Briefly describe what is being shown in the figure.
 
   ## Fig. 2: Monte Carlo Simulation
+  <img width="506" alt="Screenshot 2024-05-06 at 2 04 40 PM" src="https://github.com/tifferly/AEM3103Final/assets/167820456/89d11d36-fbab-4006-84ac-a29c3ee8c33a">
+<img width="495" alt="Screenshot 2024-05-06 at 2 05 06 PM" src="https://github.com/tifferly/AEM3103Final/assets/167820456/6d66d290-cd26-4dce-a36e-fe03a7bbe30e">
+
   <2D trajectories simulated using random sampling of parameters, overlay polynomial fit onto plot.>
 
   Briefly describe what is being shown in the figure.
 
  ## Fig. 3: Time Derivatives
+ <img width="490" alt="Screenshot 2024-05-06 at 2 05 27 PM" src="https://github.com/tifferly/AEM3103Final/assets/167820456/61f5766c-fe25-4cd5-a2e2-ddc7fa9cc2a0">
+
  <Time-derivative of height and range for the fitted trajectory>
 
   Briefly describe what is being shown in the figure.
