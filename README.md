@@ -62,7 +62,7 @@
   ## Fig. 1: Single Parameter Variation
   <img width="485" alt="Screenshot 2024-05-06 at 2 04 13 PM" src="https://github.com/tifferly/AEM3103Final/assets/167820456/a6d5d4af-ee69-420a-ba67-d894eb2fb697">
 
-  Shows two plots in which both measure height for varying flight path angle(gamma) and velocity values. The top graph shows three different gamma values with their corresponding heights. The bottom graph shows three different velocities and their corresponding heights. Nominal trajectory for velocity is 3.55m/s while the nominal trajectory for initial flight path angle is -0.18rad
+  Figure 1 shows two plots in which both measure height for varying flight path angle(gamma) and velocity values. The top graph shows three different gamma values with their corresponding heights. The bottom graph shows three different velocities and their corresponding heights. Nominal trajectory for velocity is 3.55m/s while the nominal trajectory for initial flight path angle is -0.18rad
 
   ## Fig. 2: Monte Carlo Simulation
   <img width="506" alt="Screenshot 2024-05-06 at 2 04 40 PM" src="https://github.com/tifferly/AEM3103Final/assets/167820456/89d11d36-fbab-4006-84ac-a29c3ee8c33a">
